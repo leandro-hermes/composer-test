@@ -1,0 +1,11 @@
+{
+    "name": "leandro-hermes/composer-test",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Leandro Hermes Neto",
+            "email": "leandro@leandrohermes.net"
+        }
+    ],
+    "require": {}
+}
