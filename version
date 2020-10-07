@@ -1,0 +1,15 @@
+<?php
+// pega o conteúdo como array pra manipular
+$composer = json_decode(file_get_contents('./composer.json'), true);
+
+// se a versão foi passada por parâmetro, atualiza no composer.json
+if ($argv[1] ?? false) {
+    // define a versão do argumento
+    $composer['version'] = $argv[1];
+
+    // atualiza o arquivo com o novo conteúdo
+    file_put_contents('./composer.json', json_encode($composer, JSON_PRETTY_PRINT + JSON_UNESCAPED_SLASHES + JSON_UNESCAPED_UNICODE) . "\n");
+}
+
+// imprime a nova versão
+echo $composer['version'] . "\n";
