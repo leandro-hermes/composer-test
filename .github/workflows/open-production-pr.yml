@@ -3,11 +3,10 @@ on:
     branches: 
       - 'homolog/*'
 
-name: Create production Pull Request
+name: Open production Pull Request
 
 jobs:
-  release:
-    name: Generate release
+  open:
     runs-on: ubuntu-latest
     steps:
       - name: pull-request-action
