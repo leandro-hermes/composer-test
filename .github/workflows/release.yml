@@ -3,9 +3,16 @@ on:
     branches: 
       - 'homolog/*'
 
-name: Generate create PR
+name: Create production Pull Request
 
 jobs:
   release:
     name: Generate release
     runs-on: ubuntu-latest
+    steps:
+      - name: pull-request-action
+        uses: vsoch/pull-request-action@1.0.6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH_PREFIX: "homolog/"
+          PULL_REQUEST_BRANCH: "main"
