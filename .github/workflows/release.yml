@@ -1,0 +1,11 @@
+on:
+  push:
+    branches: 
+      - 'homolog/*'
+
+name: Generate create PR
+
+jobs:
+  release:
+    name: Generate release
+    runs-on: ubuntu-latest
