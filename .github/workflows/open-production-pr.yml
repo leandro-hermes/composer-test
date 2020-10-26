@@ -1,0 +1,17 @@
+on:
+  push:
+    branches: 
+      - 'homolog/*'
+
+name: Open production Pull Request
+
+jobs:
+  open:
+    runs-on: ubuntu-latest
+    steps:
+      - name: pull-request-action
+        uses: vsoch/pull-request-action@1.0.6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH_PREFIX: "homolog/"
+          PULL_REQUEST_BRANCH: "main"

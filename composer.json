@@ -1,5 +1,6 @@
 {
     "name": "leandro-hermes/composer-test",
+    "version": "1.0.0",
     "license": "MIT",
     "authors": [
         {
@@ -7,5 +8,7 @@
             "email": "leandro@leandrohermes.net"
         }
     ],
-    "require": {}
+    "require": {
+      "ext-json": "*"
+    }
 }
