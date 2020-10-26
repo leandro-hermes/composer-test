@@ -5,7 +5,7 @@ on:
 name: Git flow update
 
 jobs:
-  open:
+  apply:
     runs-on: ubuntu-latest
     if: github.event.pull_request.merged == 'true' && github.event.pull_request.base.ref == 'main'
     steps:
