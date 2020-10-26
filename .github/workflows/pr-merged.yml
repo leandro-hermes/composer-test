@@ -27,5 +27,5 @@ jobs:
           git merge main
           echo "Deleting branch '${{ github.event.pull_request.head.ref }}'"
           git push origin --delete ${{ github.event.pull_request.head.ref }}
-          echo "Updating develop"
+          echo "Updating 'develop'"
           git push origin develop
