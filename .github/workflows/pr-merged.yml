@@ -47,6 +47,8 @@ jobs:
           echo "Setting up credentials"
           git config user.email "${{ secrets.GIT_FLOW_USER_EMAIL }}"
           git config user.name "${{ secrets.GIT_FLOW_USER_NAME }}"
+          git config --global user.email "${{ secrets.GIT_FLOW_USER_EMAIL }}"
+          git config --global user.name "${{ secrets.GIT_FLOW_USER_NAME }}"
 
       - name: Delete remote branch
         run: |
