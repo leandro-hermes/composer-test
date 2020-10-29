@@ -8,7 +8,7 @@ name: Git Flow
 jobs:
   sync-develop:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged_at != null && github.event.pull_request.base == 'main'
+    if: github.event.pull_request.merged_at != null && github.event.pull_request.base.ref == 'main'
     steps:
       - name: Checkout
         uses: actions/checkout@v2.3.3
