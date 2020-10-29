@@ -47,7 +47,8 @@ jobs:
       - name: Delete remote branch
         run: |
           BRANCH=${{ github.event.pull_request.head.ref }}
-          if [ $(git ls-remote --exit-code --heads origin $BRANCH) ]; then \
+          git ls-remote --exit-code --heads origin $BRANCH
+          if [ $? -eq 0 ]; then \
             echo "Deleting branch '$BRANCH'"; \
             git push origin --delete $BRANCH; \
           else \
