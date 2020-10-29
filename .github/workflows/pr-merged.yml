@@ -19,16 +19,16 @@ jobs:
       - name: Preparing
         run: |
           echo "Setting up credentials"
-          git config user.name github-actions
-          git config user.email github-actions@github.com
+          git config user.email "${{ github.actor }}@users.noreply.github.com"
+          git config user.name "${{ github.actor }}"
           echo "Fetching 'main'"
           git fetch origin main:main --progress
 
       - name: Merging main into develop
         run: |
-          echo "Merging 'main'"
+          echo "Merging 'main' into 'develop'"
           git merge main
-          echo "Updating 'develop'"
+          echo "Pushing 'develop'"
           ORIGIN=https://${{ secrets.GIT_FLOW_ACCESS_KEY }}@github.com/${{ github.repository }}
           git push $ORIGIN develop
 
@@ -42,8 +42,8 @@ jobs:
       - name: Preparing
         run: |
           echo "Setting up credentials"
-          git config user.name github-actions
-          git config user.email github-actions@github.com
+          git config user.email "${{ github.actor }}@users.noreply.github.com"
+          git config user.name "${{ github.actor }}"
 
       - name: Delete remote branch
         run: |
