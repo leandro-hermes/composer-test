@@ -31,7 +31,9 @@ jobs:
           echo "Merging 'main' into 'develop'"
           git merge main
           echo "Pushing 'develop'"
-          git push
+          USER="${{ secrets.GIT_FLOW_USER_NAME }}:${{ secrets.GIT_FLOW_ACCESS_KEY }}"
+          ORIGIN=https://$USER@github.com/${{ github.repository }}
+          git push $ORIGIN
 #          ORIGIN=https://${{ secrets.GIT_FLOW_ACCESS_KEY }}@github.com/${{ github.repository }}
 #          git push $ORIGIN develop
 
