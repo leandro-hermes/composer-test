@@ -53,7 +53,9 @@ jobs:
       - name: Delete remote branch
         run: |
           BRANCH=${{ github.event.pull_request.head.ref }}
-          git ls-remote --exit-code --heads origin $BRANCH
+          USER="${{ secrets.GIT_FLOW_USER_NAME }}:${{ secrets.GIT_FLOW_ACCESS_KEY }}"
+          ORIGIN=https://$USER@github.com/${{ github.repository }}
+          git ls-remote --exit-code --heads $ORIGIN $BRANCH
           if [ $? -eq 0 ]; then \
             echo "Deleting branch '$BRANCH'"; \
             git push origin --delete $BRANCH; \
