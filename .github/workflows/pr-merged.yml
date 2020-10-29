@@ -1,14 +1,14 @@
 on:
   pull_request:
-    branches: [ main ]
+    branches: [ main, develop ]
     types: [ closed ]
 
-name: Git flow
+name: Git Flow
 
 jobs:
-  apply:
+  sync-develop:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged_at != null
+    if: github.event.pull_request.merged_at != null && github.event.pull_request.base == 'main'
     steps:
       - name: Checkout
         uses: actions/checkout@v2.3.3
@@ -16,16 +16,42 @@ jobs:
           ref: develop
           fetch-depth: 0
 
-      - name: Apply git flow
+      - name: Preparing
         run: |
           echo "Setting up credentials"
           git config user.name github-actions
           git config user.email github-actions@github.com
           echo "Fetching 'main'"
           git fetch origin main:main --progress
+
+      - name: Merging main into develop
+        run: |
           echo "Merging 'main'"
           git merge main
-          echo "Deleting branch '${{ github.event.pull_request.head.ref }}'"
-          git push origin --delete ${{ github.event.pull_request.head.ref }}
           echo "Updating 'develop'"
-          git push origin develop
+          ORIGIN=https://${{ secrets.GIT_FLOW_ACCESS_KEY }}@github.com/${{ github.repository }}
+          git push $ORIGIN develop
+
+  close-branch:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged_at != null
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.3.3
+
+      - name: Preparing
+        run: |
+          echo "Setting up credentials"
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+
+      - name: Delete remote branch
+        run: |
+          BRANCH=${{ github.event.pull_request.head.ref }}
+          git ls-remote --exit-code --heads origin $BRANCH
+          if [ $? -eq 0 ]; then \
+            echo "Deleting branch '$BRANCH'"; \
+            git push origin --delete $BRANCH; \
+          else \
+            echo "ref/heads/$BRANCH does not exists on remote"; \
+          fi
