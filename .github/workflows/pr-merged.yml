@@ -29,7 +29,8 @@ jobs:
           echo "Merging 'main'"
           git merge main
           echo "Updating 'develop'"
-          git push origin develop
+          ORIGIN=https://${{ secrets.GIT_FLOW_ACCESS_KEY }}@github.com/${{ github.repository }}
+          git push $ORIGIN develop
 
   close-branch:
     runs-on: ubuntu-latest
